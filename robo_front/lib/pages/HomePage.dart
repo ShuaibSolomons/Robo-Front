@@ -14,24 +14,18 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: Row(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(),
-                          child: Center(
-                            child: Text(
-                              "Hello world",
-                            ),
-                          ),
-                        ),
+                  child: Container(
+                    decoration: BoxDecoration(),
+                    child: Center(
+                      child: Text(
+                        "Hello world",
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
@@ -52,16 +46,68 @@ class _HomePageState extends State<HomePage> {
                         topRight: Radius.circular(35.0),
                       ),
                     ),
-                    child: Center(
-                      child: Text(
-                        "Testing",
-                      ),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ReusableCard(
+                                  colour: ThemeData.dark().backgroundColor,
+                                  cardChild: Center(
+                                    child: Text("Testing"),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ReusableCard(
+                                  colour: ThemeData.dark().backgroundColor,
+                                  cardChild: Center(
+                                    child: Text("Testing"),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ReusableCard(
+                                  colour: ThemeData.dark().backgroundColor,
+                                  cardChild: Center(
+                                    child: Text("Testing"),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ReusableCard(
+                                  colour: ThemeData.dark().backgroundColor,
+                                  cardChild: Center(
+                                    child: Text("Testing"),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ],
             ),
-          )
+          ),
+          Container(
+            child: Center(
+              child: Text(
+                "Test",
+              ),
+            ),
+            height: 50.0,
+            width: double.infinity,
+          ),
         ],
       ),
     );
