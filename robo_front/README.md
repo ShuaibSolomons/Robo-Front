@@ -1,18 +1,12 @@
-# robo_front
+# Robo-Front
 
-A new Flutter project.
+Robo-Front will act as an application idea to allow me to learn how flutter works and to build some basic applications well enough to be able to use the skill in the working world.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Things learnt so far
+- Setup build and compile
+- Basics on putting widgets together
+- Basics on theaming
+- Navigating to different pages
+- To be continued...
 
 <!-- cmd + shift + P = launch emulator -->
