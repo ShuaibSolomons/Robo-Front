@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:robo_front/reusableResources/ReusableCard.dart';
+import 'package:robo_front/screens/PurchasePage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,6 +8,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Object test;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,6 +17,7 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
+            flex: 3,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -32,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 8,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,14 +103,38 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Container(
-            child: Center(
-              child: Text(
-                "Test",
-              ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      print("To clear object");
+                    },
+                    child: Expanded(
+                      child: Center(
+                        child: Text("Clear"),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PurchasePage(basket: test),
+                        ),
+                      );
+                    },
+                    child: Center(
+                      child: Text("Review"),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            height: 50.0,
-            width: double.infinity,
           ),
         ],
       ),
