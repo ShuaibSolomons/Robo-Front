@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:robo_front/reusableResources/ReusableCard.dart';
 import 'package:robo_front/screens/PurchasePage.dart';
+import 'package:robo_front/http/robo_back_client.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Object test;
+  Object productTypes = RoboBackClient().getProductTypes(1, 1);
 
   @override
   Widget build(BuildContext context) {
