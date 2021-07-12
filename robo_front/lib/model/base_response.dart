@@ -1,15 +1,17 @@
+import 'result.dart';
 import 'Status.dart';
 
-class BaseRequest<T> {
+class BaseResponse {
   Status status;
-  T result;
+  Result result;
 
-  BaseRequest({this.status, this.result});
+  BaseResponse({this.status, this.result});
 
-  BaseRequest.fromJson(Map<String, dynamic> json) {
+  BaseResponse.fromJson(Map<String, dynamic> json) {
     status =
         json['status'] != null ? new Status.fromJson(json['status']) : null;
-    // result = json['result'] != null ? new T.fromJson(json['result']) : null;
+    result =
+        json['result'] != null ? new Result.fromJson(json['result']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -17,9 +19,9 @@ class BaseRequest<T> {
     if (this.status != null) {
       data['status'] = this.status.toJson();
     }
-    // if (this.result != null) {
-    //   data['result'] = this.result.toJson();
-    // }
+    if (this.result != null) {
+      data['result'] = this.result.toJson();
+    }
     return data;
   }
 }
