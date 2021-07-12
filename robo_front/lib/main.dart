@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/HomePage.dart';
+import 'package:robo_front/screens/loading_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
-      home: HomePage(),
+      home: LoadingScreen(),
     );
   }
 }

@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8e826af4-6acc-4359-94e8-3e0b73c2c973" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/RoboFront.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RoboFront.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/.metadata" afterDir="false" />
@@ -44,9 +49,14 @@
       <change beforePath="$PROJECT_DIR$/robo_front/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/ios/Runner/Base.lproj/Main.storyboard" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/ios/Runner/Runner-Bridging-Header.h" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/ios/Runner/Runner-Bridging-Header.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robo_front/lib/http/robo_back_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/http/robo_back_client.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/robo_front/lib/pages/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/pages/HomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robo_front/lib/model/BaseRequest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/model/BaseRequest.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robo_front/lib/model/Result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/model/Result.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robo_front/lib/model/Status.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/model/Status.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/lib/reusableResources/ReusableCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/reusableResources/ReusableCard.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robo_front/lib/screens/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/screens/HomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robo_front/lib/screens/PurchasePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/screens/PurchasePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/lib/utils/Constant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/utils/Constant.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/lib/utils/Enum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/lib/utils/Enum.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robo_front/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/robo_front/pubspec.yaml" afterDir="false" />
