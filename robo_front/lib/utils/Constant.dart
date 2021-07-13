@@ -9,3 +9,5 @@ const kTextStyle = TextStyle(
   fontSize: 18.0,
   color: Color(0xFF8D8E98),
 );
+
+const kAppColourGreen = Color(0xff00a572);

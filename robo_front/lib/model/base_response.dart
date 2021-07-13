@@ -1,13 +1,13 @@
 import 'result.dart';
 import 'Status.dart';
 
-class BaseResponse {
+class BaseRoboResponse {
   Status status;
   Result result;
 
-  BaseResponse({this.status, this.result});
+  BaseRoboResponse({this.status, this.result});
 
-  BaseResponse.fromJson(Map<String, dynamic> json) {
+  BaseRoboResponse.fromJson(Map<String, dynamic> json) {
     status =
         json['status'] != null ? new Status.fromJson(json['status']) : null;
     result =
