@@ -5,7 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class StaggeredGrid extends StatelessWidget {
   const StaggeredGrid({@required this.display, @required this.onPress});
 
-  final BaseResponse display;
+  final BaseRoboResponse display;
   final Function onPress;
 
   @override
@@ -14,7 +14,10 @@ class StaggeredGrid extends StatelessWidget {
       crossAxisCount: 4,
       itemCount: display.result.productTypes.length,
       itemBuilder: (BuildContext context, int index) => new Container(
-        color: Colors.green,
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         child: GestureDetector(
           onTap: () {
             if (display.result.productTypes != null) {}

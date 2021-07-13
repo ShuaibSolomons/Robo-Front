@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:robo_front/http/robo_back_client.dart';
 import 'package:robo_front/model/base_response.dart';
-import 'package:robo_front/screens/home_page.dart';
+import 'package:robo_front/screens/home_screen.dart';
+import 'package:robo_front/screens/main_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -10,21 +11,21 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  BaseResponse productTypes;
+  BaseRoboResponse menu;
 
   @override
   void initState() {
     super.initState();
-    getProductTypes(1, 1);
-    print(productTypes);
+    getMenu(1, 1);
+    print(menu);
   }
 
-  void getProductTypes(int storeID, int companyID) async {
-    productTypes = await RoboBackClient().getProductTypes(storeID, companyID);
+  void getMenu(int storeID, int companyID) async {
+    menu = await RoboBackClient().getMenu(storeID, companyID);
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return HomePage(
-        productTypes: productTypes,
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return MainScreen(
+        productTypes: menu,
       );
     }));
   }
@@ -34,7 +35,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Scaffold(
       body: Center(
         child: SpinKitCubeGrid(
-          color: Colors.green,
+          color: Color(0xff00a572),
           size: 75.0,
         ),
       ),

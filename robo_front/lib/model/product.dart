@@ -3,9 +3,9 @@ class Product {
   String productTypeName;
   int productTypeID;
   String productName;
-  double costPrice;
-  double salePrice;
-  double profitAmount;
+  dynamic costPrice;
+  dynamic salePrice;
+  dynamic profitAmount;
   String originCountry;
   String originCurrencyCode;
   bool customerShouldSetValue;

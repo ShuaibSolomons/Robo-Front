@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // stateless widget because I only want this page to be as if it were a receipt where no edits can occur
-class PurchasePage extends StatelessWidget {
-  PurchasePage({@required this.basket});
+class CartScreen extends StatelessWidget {
+  CartScreen({@required this.basket});
 
   // This will be the main basket which will be an overview of all
   // the products and how much it amounts to
@@ -11,8 +11,13 @@ class PurchasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Icon(Icons.park_rounded),
+      ),
       body: Container(
-        child: Text("This is the purchase screen"),
+        child: Center(
+          child: Text("This is the purchase cart screen"),
+        ),
       ),
     );
   }
