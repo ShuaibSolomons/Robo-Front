@@ -3,6 +3,7 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:robo_front/model/base_response.dart';
 import 'package:robo_front/screens/account_screen.dart';
 import 'package:robo_front/screens/recent_purchases_screen.dart';
+import 'package:robo_front/utils/constant.dart';
 
 import 'home_screen.dart';
 
@@ -42,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Icon(Icons.park_rounded),
+        title: kIconImage,
       ),
       bottomNavigationBar: BubbleBottomBar(
         backgroundColor: ThemeData.dark().backgroundColor,

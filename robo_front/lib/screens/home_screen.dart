@@ -128,8 +128,17 @@ class _HomePageState extends State<HomeScreen> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.green.shade700,
+                      color: kAppColourGreen,
                       borderRadius: BorderRadius.circular(15.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: ThemeData.dark().cardColor,
+                          blurRadius: 1.0,
+                          spreadRadius: 0.0,
+                          offset: Offset(
+                              1.0, 1.0), // shadow direction: bottom right
+                        )
+                      ],
                     ),
                     child: Center(
                       child: new Text(

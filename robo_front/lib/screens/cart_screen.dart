@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:robo_front/utils/constant.dart';
 
 // stateless widget because I only want this page to be as if it were a receipt where no edits can occur
 class CartScreen extends StatelessWidget {
@@ -12,7 +13,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Icon(Icons.park_rounded),
+        title: kIconImage,
       ),
       body: Container(
         child: Center(
