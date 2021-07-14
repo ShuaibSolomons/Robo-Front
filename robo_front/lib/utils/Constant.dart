@@ -11,3 +11,5 @@ const kTextStyle = TextStyle(
 );
 
 const kAppColourGreen = Color(0xff00a572);
+
+const kIconImage = ImageIcon(AssetImage('images/Robo.png'));
