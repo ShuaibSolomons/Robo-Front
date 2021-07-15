@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:robo_front/model/base_response.dart';
+import 'package:robo_front/model/basket_item.dart';
 import 'package:robo_front/screens/account_screen.dart';
+import 'package:robo_front/screens/cart_edit_screen.dart';
 import 'package:robo_front/screens/recent_purchases_screen.dart';
 import 'package:robo_front/utils/constant.dart';
 
+import 'cart_purchase_preview_screen.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,11 +19,34 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+
   int currentIndex;
-
+  double totalBasketAmount = 0;
   BaseRoboResponse displaydetails;
+  List<BasketItem> basketItems = [];
 
-  Widget purchase;
+  void setFullState(
+      double _totalBasketAmount, List<BasketItem> _basketList, int index) {
+    setBasketState(_totalBasketAmount, _basketList);
+    setState(() {
+      _listKey.currentState.insertItem(basketItems.length - 1);
+    });
+  }
+
+  void setBasketState(double _totalBasketAmount, List<BasketItem> _basketList) {
+    setState(() {
+      this.totalBasketAmount = _totalBasketAmount;
+      this.basketItems = _basketList;
+    });
+    print(basketItems.length);
+  }
+
+  void purchaseCart(int request) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return CartPurchasePreviewScreen();
+    }));
+  }
 
   @override
   void initState() {
@@ -32,19 +58,24 @@ class _MainScreenState extends State<MainScreen> {
 
   void changePage(int index) {
     setState(() {
-      purchase = purchase;
       currentIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    purchase = HomeScreen(productTypes: displaydetails);
-
     return Scaffold(
       appBar: AppBar(
         title: kIconImage,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          purchaseCart(1);
+        },
+        child: Icon(Icons.bolt),
+        backgroundColor: kAppColourGreen,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BubbleBottomBar(
         backgroundColor: ThemeData.dark().backgroundColor,
         opacity: .2,
@@ -52,9 +83,10 @@ class _MainScreenState extends State<MainScreen> {
         onTap: changePage,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         elevation: 8,
+        fabLocation: BubbleBottomBarFabLocation.end,
         hasNotch: true,
         hasInk: true,
-        inkColor: Color(0xff00a572),
+        inkColor: kAppColourGreen,
         items: <BubbleBottomBarItem>[
           BubbleBottomBarItem(
             backgroundColor: Colors.black,
@@ -96,7 +128,7 @@ class _MainScreenState extends State<MainScreen> {
                 color: Colors.white,
               ),
               title: Text(
-                "Account",
+                "Cart",
                 style: TextStyle(color: Colors.white),
               ))
         ],
@@ -105,7 +137,21 @@ class _MainScreenState extends State<MainScreen> {
       //     ? purchase
       //     : (currentIndex == 1 ? RecentPurchasesScreen() : AccountScreen()),
       body: IndexedStack(
-        children: [purchase, RecentPurchasesScreen(), AccountScreen()],
+        children: [
+          HomeScreen(
+            productTypes: displaydetails,
+            setBasket: setFullState,
+            totalBasketAmount: totalBasketAmount,
+            basketItems: basketItems,
+          ),
+          RecentPurchasesScreen(),
+          CartEditScreen(
+            totalBasketAmount: totalBasketAmount,
+            basketItems: basketItems,
+            setBasket: setBasketState,
+            listKey: _listKey,
+          ),
+        ],
         index: currentIndex,
       ),
     );

@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:robo_front/model/base_response.dart';
+import 'package:robo_front/model/basket_item.dart';
 import 'package:robo_front/model/product.dart';
 import 'package:robo_front/model/product_type.dart';
-import 'package:robo_front/reusableResources/reusable_card.dart';
-import 'package:robo_front/reusableResources/staggered_grid.dart';
-import 'package:robo_front/screens/cart_screen.dart';
-import 'package:robo_front/http/robo_back_client.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:robo_front/reusableResources/amount_display_widget.dart';
 import 'package:robo_front/utils/constant.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({@required this.productTypes});
+  const HomeScreen(
+      {@required this.productTypes,
+      @required this.setBasket,
+      @required this.totalBasketAmount,
+      @required this.basketItems});
 
+  final Function setBasket;
+  final double totalBasketAmount;
   final BaseRoboResponse productTypes;
+  final List<BasketItem> basketItems;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,8 +31,7 @@ class _HomePageState extends State<HomeScreen> {
   BaseRoboResponse displaydetails;
   List<ProductType> productTypes;
   List<Product> products;
-
-  double totalPurchaseAmount = 0;
+  List<BasketItem> basketItems = [];
 
   @override
   void initState() {
@@ -38,6 +41,14 @@ class _HomePageState extends State<HomeScreen> {
     isProductType = true;
     displayLengthProductTypes = productTypes.length;
     //print(productTypes.result.productTypes[0].storeID);
+  }
+
+  void setTotalPurchaseAmount(
+      double _basketAmount, List<BasketItem> _basketItems, int index) {
+    setState(() {
+      basketItems = _basketItems;
+    });
+    widget.setBasket(_basketAmount, _basketItems, index);
   }
 
   void getProducts(ProductType productType) async {
@@ -52,44 +63,17 @@ class _HomePageState extends State<HomeScreen> {
     });
   }
 
-  void purchaseCart(int request) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return CartScreen(basket: request);
-    }));
-  }
-
   @override
   Widget build(BuildContext context) {
+    basketItems = widget.basketItems;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          purchaseCart(1);
-        },
-        child: Icon(Icons.bolt),
-        backgroundColor: kAppColourGreen,
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(),
-                    child: Center(
-                      child: Text(
-                        totalPurchaseAmount.toString(),
-                        style: TextStyle(fontSize: 40.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            child: AmountDisplayWidget(
+                totalBasketAmount: widget.totalBasketAmount),
           ),
           GestureDetector(
             onTap: () {
@@ -121,9 +105,20 @@ class _HomePageState extends State<HomeScreen> {
                     if (isProductType) {
                       getProducts(productTypes[index]);
                     } else {
-                      setState(() {
-                        totalPurchaseAmount += products[index].salePrice;
-                      });
+                      basketItems.add(
+                        new BasketItem(
+                          index: basketItems.length,
+                          productID: products[index].productID,
+                          amountValue: products[index].salePrice,
+                          amount: products[index].salePrice.toString(),
+                          productName: products[index].productName,
+                        ),
+                      );
+                      setTotalPurchaseAmount(
+                          (widget.totalBasketAmount +
+                              products[index].salePrice),
+                          basketItems,
+                          index);
                     }
                   },
                   child: Container(
