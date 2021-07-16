@@ -42,10 +42,17 @@ class _MainScreenState extends State<MainScreen> {
     print(basketItems.length);
   }
 
-  void purchaseCart(int request) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return CartPurchasePreviewScreen();
-    }));
+  void purchaseCart(List<BasketItem> request) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return CartPurchasePreviewScreen(
+            basketItems: request,
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -70,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          purchaseCart(1);
+          purchaseCart(basketItems);
         },
         child: Icon(Icons.bolt),
         backgroundColor: kAppColourGreen,
