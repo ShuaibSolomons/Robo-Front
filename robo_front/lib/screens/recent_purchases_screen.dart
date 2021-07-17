@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RecentPurchasesScreen extends StatefulWidget {
+  static const recentPurchasesScreen = 1;
   @override
   _RecentPurchasesScreenState createState() => _RecentPurchasesScreenState();
 }

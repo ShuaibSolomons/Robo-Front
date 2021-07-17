@@ -6,7 +6,7 @@ import 'package:robo_front/model/basket_item.dart';
 import '../model/base_response.dart';
 
 class RoboBackClient {
-  String protocol = '3651e0ea6806.ngrok.io';
+  String protocol = '263759adf89b.ngrok.io';
 
   Future<BaseRoboResponse> getProductTypes(int storeID, int companyID) async {
     var url =
@@ -18,8 +18,6 @@ class RoboBackClient {
     } else {
       throw Exception('Failed to get product types');
     }
-    //print('Response status: ${response.statusCode}');
-    //print('Response body: ${response.body}');
   }
 
   Future<BaseRoboResponse> getProducts(
