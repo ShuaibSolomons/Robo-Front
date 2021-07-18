@@ -17,7 +17,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
     getMenu(1, 1);
-    print(menu);
   }
 
   void getMenu(int storeID, int companyID) async {

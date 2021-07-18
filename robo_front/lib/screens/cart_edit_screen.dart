@@ -5,6 +5,7 @@ import 'package:robo_front/reusableResources/list_item_widget.dart';
 
 // stateless widget because I only want this page to be as if it were a receipt where no edits can occur
 class CartEditScreen extends StatelessWidget {
+  static const cartEditScreen = 2;
   CartEditScreen({
     @required this.basketItems,
     @required this.totalBasketAmount,
