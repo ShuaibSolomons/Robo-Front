@@ -8,6 +8,7 @@ import 'package:robo_front/reusableResources/amount_display_widget.dart';
 import 'package:robo_front/utils/constant.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const homeScreenIndex = 0;
   const HomeScreen(
       {@required this.productTypes,
       @required this.setBasket,

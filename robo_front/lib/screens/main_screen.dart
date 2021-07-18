@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:robo_front/model/base_response.dart';
 import 'package:robo_front/model/basket_item.dart';
+import 'package:robo_front/model/cart_purchase_preview.dart';
 import 'package:robo_front/screens/account_screen.dart';
 import 'package:robo_front/screens/cart_edit_screen.dart';
 import 'package:robo_front/screens/recent_purchases_screen.dart';
 import 'package:robo_front/utils/constant.dart';
+import 'package:robo_front/utils/enum.dart';
 
 import 'cart_purchase_preview_screen.dart';
 import 'home_screen.dart';
@@ -30,22 +32,53 @@ class _MainScreenState extends State<MainScreen> {
       double _totalBasketAmount, List<BasketItem> _basketList, int index) {
     setBasketState(_totalBasketAmount, _basketList);
     setState(() {
-      _listKey.currentState.insertItem(basketItems.length - 1);
+      _listKey.currentState
+          .insertItem(basketItems.length == 0 ? 0 : basketItems.length - 1);
     });
   }
 
-  void setBasketState(double _totalBasketAmount, List<BasketItem> _basketList) {
+  void clearAnimatedList() {
+    for (var i = 0; i <= basketItems.length - 1; i++) {
+      _listKey.currentState.removeItem(0,
+          (BuildContext context, Animation<double> animation) {
+        return Container();
+      });
+    }
+  }
+
+  void setBasketState(double totalBasketAmount, List<BasketItem> _basketList) {
     setState(() {
-      this.totalBasketAmount = _totalBasketAmount;
+      this.totalBasketAmount = totalBasketAmount;
       this.basketItems = _basketList;
     });
-    print(basketItems.length);
   }
 
-  void purchaseCart(int request) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return CartPurchasePreviewScreen();
-    }));
+  void purchaseCart(List<BasketItem> request) async {
+    CartPurchasePreviewModel response = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return CartPurchasePreviewScreen(
+            basketItems: request,
+            totalBasketAmount: totalBasketAmount,
+          );
+        },
+      ),
+    );
+
+    if (response != null) {
+      if (response.screemRoute == CartPurchasePreviewResponse.CLEAR) {
+        changePage(HomeScreen.homeScreenIndex);
+      } else if (response.screemRoute == CartPurchasePreviewResponse.PURCHASE) {
+        if (response.responseStatus == PurchaseResponseStatus.SUCCESS) {
+          clearAnimatedList();
+          setBasketState(0, []);
+        }
+        changePage(HomeScreen.homeScreenIndex);
+      } else {
+        changePage(CartEditScreen.cartEditScreen);
+      }
+    }
   }
 
   @override
@@ -70,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          purchaseCart(1);
+          purchaseCart(basketItems);
         },
         child: Icon(Icons.bolt),
         backgroundColor: kAppColourGreen,
