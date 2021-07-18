@@ -11,9 +11,41 @@ import 'package:robo_front/utils/enum.dart';
 import '../http/robo_back_client.dart';
 
 class CartPurchasePreviewScreen extends StatelessWidget {
-  const CartPurchasePreviewScreen({@required this.basketItems});
+  const CartPurchasePreviewScreen(
+      {@required this.basketItems, this.totalBasketAmount});
 
   final List<BasketItem> basketItems;
+  final double totalBasketAmount;
+
+  List _buildList() {
+    List<Widget> listItems = [];
+    basketItems.forEach(
+      (element) {
+        listItems.add(
+          Container(
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${element.productName}',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    '${element.amountValue}',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              )),
+        );
+      },
+    );
+    return listItems;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +57,55 @@ class CartPurchasePreviewScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              flex: 3,
-              child: Container(
-                height: 250,
-                color: Colors.amber,
+              flex: 4,
+              child: Center(
+                child: Container(
+                  width: 350.0,
+                  padding: EdgeInsets.all(20.0),
+                  margin: EdgeInsets.all(20.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16.0),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Text(
+                          'This is your receipt',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          '$totalBasketAmount',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                        child: Divider(color: Colors.black),
+                      ),
+                      Expanded(
+                        child: CustomScrollView(
+                          shrinkWrap: true,
+                          slivers: [
+                            SliverList(
+                                delegate: SliverChildListDelegate(_buildList()))
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
             Expanded(
               flex: 1,
               child: Container(
+                //color: ThemeData.dark().primaryColorDark,
                 padding: EdgeInsets.only(bottom: 20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,4 +176,36 @@ BaseRoboRequest createRequest(List<BasketItem> basketItems) {
   BaseRoboRequest request =
       new BaseRoboRequest(scope: scope, basketPurchase: basketItems);
   return request;
+}
+
+class MySeparator extends StatelessWidget {
+  final double height;
+  final Color color;
+
+  const MySeparator({this.height = 1, this.color = Colors.black});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final boxWidth = constraints.constrainWidth();
+        final dashWidth = 10.0;
+        final dashHeight = height;
+        final dashCount = (boxWidth / (2 * dashWidth)).floor();
+        return Flex(
+          children: List.generate(dashCount, (_) {
+            return SizedBox(
+              width: dashWidth,
+              height: dashHeight,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: color),
+              ),
+            );
+          }),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          direction: Axis.horizontal,
+        );
+      },
+    );
+  }
 }

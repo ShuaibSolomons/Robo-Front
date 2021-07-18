@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:robo_front/model/base_request.dart';
-import 'package:robo_front/model/basket_item.dart';
 import '../model/base_response.dart';
 
 class RoboBackClient {
-  String protocol = '263759adf89b.ngrok.io';
+  String protocol = '4c11ce7fbace.ngrok.io';
 
   Future<BaseRoboResponse> getProductTypes(int storeID, int companyID) async {
     var url =

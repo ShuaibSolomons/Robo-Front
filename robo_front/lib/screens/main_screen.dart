@@ -60,6 +60,7 @@ class _MainScreenState extends State<MainScreen> {
         builder: (context) {
           return CartPurchasePreviewScreen(
             basketItems: request,
+            totalBasketAmount: totalBasketAmount,
           );
         },
       ),
