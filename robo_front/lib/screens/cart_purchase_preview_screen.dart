@@ -5,8 +5,9 @@ import 'package:robo_front/model/basket_item.dart';
 import 'package:robo_front/model/cart_purchase_preview.dart';
 import 'package:robo_front/model/scope.dart';
 import 'package:robo_front/model/store_detail.dart';
+import 'package:robo_front/reusableResources/alert_dialogue.dart';
 import 'package:robo_front/reusableResources/elevated_button.dart';
-import 'package:robo_front/utils/Constant.dart';
+import 'package:robo_front/utils/constants.dart';
 import 'package:robo_front/utils/enum.dart';
 import '../http/robo_back_client.dart';
 
@@ -111,15 +112,32 @@ class CartPurchasePreviewScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButtonRound(
-                      onPressedDo: () {
-                        Navigator.pop(
-                          context,
-                          CartPurchasePreviewModel(
-                              screemRoute: CartPurchasePreviewResponse.EDIT),
+                    GestureDetector(
+                      onLongPress: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialogueRobo(
+                              clearAnimatedList: () {
+                                onPopNavigation(
+                                    context,
+                                    CartPurchasePreviewModel(
+                                        screemRoute:
+                                            CartPurchasePreviewResponse.CLEAR));
+                              },
+                              title: kClearBasketTitle,
+                              content: kClearBasketContent),
                         );
                       },
-                      wording: 'Edit',
+                      child: ElevatedButtonRound(
+                        onPressedDo: () {
+                          onPopNavigation(
+                              context,
+                              CartPurchasePreviewModel(
+                                  screemRoute:
+                                      CartPurchasePreviewResponse.EDIT));
+                        },
+                        wording: 'Edit',
+                      ),
                     ),
                     ElevatedButtonRound(
                       onPressedDo: () {
@@ -143,21 +161,13 @@ void purchaseBasket(BuildContext context, List<BasketItem> basketItems) async {
   BaseRoboResponse response = await RoboBackClient().purchaseBasket(request);
   print(response.reference);
   if (response != null) {
-    if (response.status.id == 0) {
-      Navigator.pop(
+    onPopNavigation(
         context,
         CartPurchasePreviewModel(
             screemRoute: CartPurchasePreviewResponse.PURCHASE,
-            responseStatus: PurchaseResponseStatus.SUCCESS),
-      );
-    } else {
-      Navigator.pop(
-        context,
-        CartPurchasePreviewModel(
-            screemRoute: CartPurchasePreviewResponse.PURCHASE,
-            responseStatus: PurchaseResponseStatus.FAILED),
-      );
-    }
+            responseStatus: response.status.id == 0
+                ? PurchaseResponseStatus.SUCCESS
+                : PurchaseResponseStatus.FAILED));
   } else {
     Navigator.pop(
       context,
@@ -165,6 +175,29 @@ void purchaseBasket(BuildContext context, List<BasketItem> basketItems) async {
           screemRoute: CartPurchasePreviewResponse.PURCHASE,
           responseStatus: PurchaseResponseStatus.FAILED),
     );
+  }
+}
+
+void onPopNavigation(
+    BuildContext context, CartPurchasePreviewModel navigateModel) {
+  if (navigateModel != null) {
+    if (navigateModel.screemRoute == CartPurchasePreviewResponse.CLEAR) {
+      Navigator.pop(
+        context,
+        navigateModel,
+      );
+    } else if (navigateModel.screemRoute ==
+        CartPurchasePreviewResponse.PURCHASE) {
+      Navigator.pop(
+        context,
+        navigateModel,
+      );
+    } else if (navigateModel.screemRoute == CartPurchasePreviewResponse.EDIT) {
+      Navigator.pop(
+        context,
+        navigateModel,
+      );
+    }
   }
 }
 

@@ -3,10 +3,11 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:robo_front/model/base_response.dart';
 import 'package:robo_front/model/basket_item.dart';
 import 'package:robo_front/model/cart_purchase_preview.dart';
+import 'package:robo_front/reusableResources/alert_dialogue.dart';
 import 'package:robo_front/screens/account_screen.dart';
 import 'package:robo_front/screens/cart_edit_screen.dart';
 import 'package:robo_front/screens/recent_purchases_screen.dart';
-import 'package:robo_front/utils/constant.dart';
+import 'package:robo_front/utils/constants.dart';
 import 'package:robo_front/utils/enum.dart';
 
 import 'cart_purchase_preview_screen.dart';
@@ -46,9 +47,9 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  void setBasketState(double totalBasketAmount, List<BasketItem> _basketList) {
+  void setBasketState(dynamic totalBasketAmount, List<BasketItem> _basketList) {
     setState(() {
-      this.totalBasketAmount = totalBasketAmount;
+      this.totalBasketAmount = totalBasketAmount.toDouble();
       this.basketItems = _basketList;
     });
   }
@@ -68,7 +69,8 @@ class _MainScreenState extends State<MainScreen> {
 
     if (response != null) {
       if (response.screemRoute == CartPurchasePreviewResponse.CLEAR) {
-        changePage(HomeScreen.homeScreenIndex);
+        clearAnimatedList();
+        setBasketState(0, []);
       } else if (response.screemRoute == CartPurchasePreviewResponse.PURCHASE) {
         if (response.responseStatus == PurchaseResponseStatus.SUCCESS) {
           clearAnimatedList();
@@ -101,12 +103,30 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: kIconImage,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          purchaseCart(basketItems);
+      floatingActionButton: GestureDetector(
+        onLongPress: () {
+          if (basketItems.length != 0) {
+            return showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialogueRobo(
+                  clearAnimatedList: clearAnimatedList,
+                  setBasketState: setBasketState,
+                  title: kClearBasketTitle,
+                  content: kClearBasketContent),
+            );
+          } else {
+            print('Empty Basket');
+          }
         },
-        child: Icon(Icons.bolt),
-        backgroundColor: kAppColourGreen,
+        child: FloatingActionButton(
+          onPressed: () {
+            if (basketItems.length != 0) {
+              purchaseCart(basketItems);
+            }
+          },
+          child: Icon(Icons.bolt),
+          backgroundColor: kAppColourGreen,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BubbleBottomBar(

@@ -5,7 +5,7 @@ import 'package:robo_front/model/product.dart';
 import 'package:robo_front/model/product_type.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:robo_front/reusableResources/amount_display_widget.dart';
-import 'package:robo_front/utils/constant.dart';
+import 'package:robo_front/utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   static const homeScreenIndex = 0;
