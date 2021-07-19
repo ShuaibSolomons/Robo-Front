@@ -13,3 +13,8 @@ const kTextStyle = TextStyle(
 const kAppColourGreen = Color(0xff00a572);
 
 const kIconImage = ImageIcon(AssetImage('images/Robo.png'));
+
+const kClearBasketTitle = 'Clear';
+const kClearBasketContent = 'Are you sure you want to clear this basket';
+
+const kHeroClear = 'clear_hero_transition';

@@ -5,7 +5,7 @@ import 'package:robo_front/model/base_request.dart';
 import '../model/base_response.dart';
 
 class RoboBackClient {
-  String protocol = '4c11ce7fbace.ngrok.io';
+  String protocol = 'bc998c713358.ngrok.io';
 
   Future<BaseRoboResponse> getProductTypes(int storeID, int companyID) async {
     var url =
