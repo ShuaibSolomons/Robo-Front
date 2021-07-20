@@ -4,6 +4,7 @@ import 'package:robo_front/model/base_response.dart';
 import 'package:robo_front/model/basket_item.dart';
 import 'package:robo_front/model/cart_purchase_preview.dart';
 import 'package:robo_front/reusableResources/alert_dialogue.dart';
+import 'package:robo_front/reusableResources/info_dialogue.dart';
 import 'package:robo_front/screens/account_screen.dart';
 import 'package:robo_front/screens/cart_edit_screen.dart';
 import 'package:robo_front/screens/recent_purchases_screen.dart';
@@ -75,11 +76,20 @@ class _MainScreenState extends State<MainScreen> {
         if (response.responseStatus == PurchaseResponseStatus.SUCCESS) {
           clearAnimatedList();
           setBasketState(0, []);
+        } else {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => InfoDialogueRobo(
+                  title: 'Purchase Failed', content: 'Please try again later'));
         }
         changePage(HomeScreen.homeScreenIndex);
       } else {
         changePage(CartEditScreen.cartEditScreen);
       }
+    } else {
+      print('response is null');
+      InfoDialogueRobo(
+          title: 'Purchase Failed', content: 'Please try again later');
     }
   }
 
