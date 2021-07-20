@@ -7,20 +7,29 @@ import 'package:robo_front/model/scope.dart';
 import 'package:robo_front/model/store_detail.dart';
 import 'package:robo_front/reusableResources/alert_dialogue.dart';
 import 'package:robo_front/reusableResources/elevated_button.dart';
+import 'package:robo_front/reusableResources/loading_widget.dart';
 import 'package:robo_front/utils/constants.dart';
 import 'package:robo_front/utils/enum.dart';
 import '../http/robo_back_client.dart';
 
-class CartPurchasePreviewScreen extends StatelessWidget {
+class CartPurchasePreviewScreen extends StatefulWidget {
   const CartPurchasePreviewScreen(
       {@required this.basketItems, this.totalBasketAmount});
 
   final List<BasketItem> basketItems;
   final double totalBasketAmount;
 
+  @override
+  _CartPurchasePreviewScreenState createState() =>
+      _CartPurchasePreviewScreenState();
+}
+
+class _CartPurchasePreviewScreenState extends State<CartPurchasePreviewScreen> {
+  bool _isLoading = false;
+
   List _buildList() {
     List<Widget> listItems = [];
-    basketItems.forEach(
+    widget.basketItems.forEach(
       (element) {
         listItems.add(
           Container(
@@ -50,116 +59,123 @@ class CartPurchasePreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: kIconImage,
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 4,
-              child: Center(
-                child: Container(
-                  width: 350.0,
-                  padding: EdgeInsets.all(20.0),
-                  margin: EdgeInsets.all(20.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16.0),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        child: Text(
-                          'This is your receipt',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      Container(
-                        child: Text(
-                          '$totalBasketAmount',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                        child: Divider(color: Colors.black),
-                      ),
-                      Expanded(
-                        child: CustomScrollView(
-                          shrinkWrap: true,
-                          slivers: [
-                            SliverList(
-                                delegate: SliverChildListDelegate(_buildList()))
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+    return _isLoading
+        ? LoadingWidget(
+            setColor: Color(0x33000000),
+          )
+        : Scaffold(
+            appBar: AppBar(
+              title: kIconImage,
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                //color: ThemeData.dark().primaryColorDark,
-                padding: EdgeInsets.only(bottom: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onLongPress: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialogueRobo(
-                              clearAnimatedList: () {
-                                onPopNavigation(
-                                    context,
-                                    CartPurchasePreviewModel(
-                                        screemRoute:
-                                            CartPurchasePreviewResponse.CLEAR));
-                              },
-                              title: kClearBasketTitle,
-                              content: kClearBasketContent),
-                        );
-                      },
-                      child: ElevatedButtonRound(
-                        onPressedDo: () {
-                          onPopNavigation(
-                              context,
-                              CartPurchasePreviewModel(
-                                  screemRoute:
-                                      CartPurchasePreviewResponse.EDIT));
-                        },
-                        wording: 'Edit',
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Center(
+                    child: Container(
+                      width: 350.0,
+                      padding: EdgeInsets.all(20.0),
+                      margin: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: Text(
+                              'This is your receipt',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              '${widget.totalBasketAmount}',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                            child: Divider(color: Colors.black),
+                          ),
+                          Expanded(
+                            child: CustomScrollView(
+                              shrinkWrap: true,
+                              slivers: [
+                                SliverList(
+                                    delegate:
+                                        SliverChildListDelegate(_buildList()))
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    ElevatedButtonRound(
-                      onPressedDo: () {
-                        if (basketItems.length != 0) {
-                          purchaseBasket(context, basketItems);
-                        }
-                      },
-                      wording: 'Purchase',
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            )
-          ],
-        ));
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    //color: ThemeData.dark().primaryColorDark,
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onLongPress: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  AlertDialogueRobo(
+                                      clearAnimatedList: () {
+                                        onPopNavigation(
+                                            context,
+                                            CartPurchasePreviewModel(
+                                                screemRoute:
+                                                    CartPurchasePreviewResponse
+                                                        .CLEAR));
+                                      },
+                                      title: kClearBasketTitle,
+                                      content: kClearBasketContent),
+                            );
+                          },
+                          child: ElevatedButtonRound(
+                            onPressedDo: () {
+                              onPopNavigation(
+                                  context,
+                                  CartPurchasePreviewModel(
+                                      screemRoute:
+                                          CartPurchasePreviewResponse.EDIT));
+                            },
+                            wording: 'Edit',
+                          ),
+                        ),
+                        ElevatedButtonRound(
+                          onPressedDo: () {
+                            if (widget.basketItems.length != 0) {
+                              setState(() => _isLoading = true);
+                              purchaseBasket(context, widget.basketItems);
+                            }
+                          },
+                          wording: 'Purchase',
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ));
   }
 }
 
 void purchaseBasket(BuildContext context, List<BasketItem> basketItems) async {
   BaseRoboRequest request = createRequest(basketItems);
   BaseRoboResponse response = await RoboBackClient().purchaseBasket(request);
-  print(response.reference);
   if (response != null) {
     onPopNavigation(
         context,
