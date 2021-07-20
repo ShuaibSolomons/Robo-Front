@@ -14,6 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   
+  flutter_native_splash: ^1.2.0
   bubble_bottom_bar: ^1.2.0
   cupertino_icons: ^1.0.2
 
@@ -24,4 +25,20 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/
+    - assets/images/
+
+
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  color: "#000000"
+  # backgroud_image: "assets/images/Robo.png"
+  image: "assets/images/Robo_Inverse.png"
+
+  android_gravity: center
+  iso_content_mode: center
+  # web_image_mode: center
+
