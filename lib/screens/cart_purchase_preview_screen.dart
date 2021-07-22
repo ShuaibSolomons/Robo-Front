@@ -9,7 +9,7 @@ import 'package:robo_front/reusableResources/alert_dialogue.dart';
 import 'package:robo_front/reusableResources/elevated_button.dart';
 import 'package:robo_front/reusableResources/loading_widget.dart';
 import 'package:robo_front/utils/constants.dart';
-import 'package:robo_front/utils/enum.dart';
+import 'package:robo_front/utils/enumeration.dart';
 import '../http/robo_back_client.dart';
 
 class CartPurchasePreviewScreen extends StatefulWidget {

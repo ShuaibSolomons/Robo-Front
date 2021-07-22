@@ -9,7 +9,7 @@ import 'package:robo_front/screens/account_screen.dart';
 import 'package:robo_front/screens/cart_edit_screen.dart';
 import 'package:robo_front/screens/recent_purchases_screen.dart';
 import 'package:robo_front/utils/constants.dart';
-import 'package:robo_front/utils/enum.dart';
+import 'package:robo_front/utils/enumeration.dart';
 
 import 'cart_purchase_preview_screen.dart';
 import 'home_screen.dart';

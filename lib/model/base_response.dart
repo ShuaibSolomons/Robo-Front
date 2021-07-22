@@ -1,6 +1,6 @@
 import 'package:robo_front/model/basket_item.dart';
 
-import 'result.dart';
+import 'results.dart';
 import 'Status.dart';
 
 class BaseRoboResponse {

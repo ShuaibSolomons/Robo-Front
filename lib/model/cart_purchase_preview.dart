@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:robo_front/utils/enum.dart';
+import 'package:robo_front/utils/enumeration.dart';
 
 import 'base_response.dart';
 
