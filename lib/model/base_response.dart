@@ -1,7 +1,7 @@
 import 'package:robo_front/model/basket_item.dart';
 
 import 'results.dart';
-import 'Status.dart';
+import 'status.dart';
 
 class BaseRoboResponse {
   String reference;
