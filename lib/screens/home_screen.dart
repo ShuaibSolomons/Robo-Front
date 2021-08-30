@@ -38,7 +38,7 @@ class _HomePageState extends State<HomeScreen> {
   void initState() {
     super.initState();
     displaydetails = widget.productTypes;
-    productTypes = displaydetails.result.productTypes;
+    productTypes = displaydetails.result.productTypeDetails;
     isProductType = true;
     displayLengthProductTypes = productTypes.length;
     //print(productTypes.result.productTypes[0].storeID);

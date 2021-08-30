@@ -219,7 +219,10 @@ void onPopNavigation(
 
 BaseRoboRequest createRequest(List<BasketItem> basketItems) {
   StoreDetail storeDetail = new StoreDetail(
-      storeID: '0001', employeeID: '01', transactionID: 1, countryCode: 'ZA');
+      storeID: '0001',
+      employeeID: '00000000-shu-aib-00000000',
+      transactionID: 1,
+      countryCode: 'ZA');
   Scope scope = new Scope(storeDetail: storeDetail, companyID: 1);
 
   BaseRoboRequest request =

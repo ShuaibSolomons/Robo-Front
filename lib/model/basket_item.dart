@@ -11,7 +11,7 @@ class BasketItem {
   StatusDetail statusDetail;
 
   // These fields will not be added to the Request when sent
-  double amountValue;
+  dynamic amountValue;
 
   BasketItem({
     this.index,
@@ -53,7 +53,7 @@ class BasketItem {
     return data;
   }
 
-  void setAmountValue(double _amountValue) {
+  void setAmountValue(dynamic _amountValue) {
     this.amountValue = _amountValue;
     this.amount = _amountValue.toString();
   }

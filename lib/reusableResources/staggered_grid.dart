@@ -12,7 +12,7 @@ class StaggeredGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return StaggeredGridView.countBuilder(
       crossAxisCount: 4,
-      itemCount: display.result.productTypes.length,
+      itemCount: display.result.productTypeDetails.length,
       itemBuilder: (BuildContext context, int index) => new Container(
         decoration: BoxDecoration(
           color: Colors.green,
@@ -20,7 +20,7 @@ class StaggeredGrid extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () {
-            if (display.result.productTypes != null) {}
+            if (display.result.productTypeDetails != null) {}
           },
           child: Center(
             child: new CircleAvatar(
