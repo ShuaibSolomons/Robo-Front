@@ -135,7 +135,7 @@ class _MainScreenState extends State<MainScreen> {
             }
           },
           child: Icon(Icons.bolt),
-          backgroundColor: kAppColourGreen,
+          backgroundColor: Colors.white,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,

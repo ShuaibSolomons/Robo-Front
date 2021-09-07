@@ -7,6 +7,7 @@ import 'package:robo_front/screens/home_screen.dart';
 import 'package:robo_front/screens/main_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
+  static String id = 'loading_screen';
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }

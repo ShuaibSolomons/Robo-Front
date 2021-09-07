@@ -5,7 +5,7 @@ import 'package:robo_front/model/base_request.dart';
 import '../model/base_response.dart';
 
 class RoboBackClient {
-  String protocol = '8d31-2c0f-f4c0-209b-c0dc-8556-68aa-2a60-5320.ngrok.io';
+  String protocol = 'robo-back.herokuapp.com';
 
   Future<BaseRoboResponse> getProductTypes(int storeID, int companyID) async {
     var url =
