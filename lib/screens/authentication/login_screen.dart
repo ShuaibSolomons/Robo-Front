@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPunch: () {
                   Navigator.pushNamed(context, LoadingScreen.id);
                 },
-                color: kAppColourBlue,
+                color: kAppColourGreen,
               ),
             ],
           ),

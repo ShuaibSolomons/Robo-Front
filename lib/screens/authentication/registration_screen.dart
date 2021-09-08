@@ -56,7 +56,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               RoundedButton(
                 title: 'Register',
                 onPunch: () {},
-                color: kAppColourGreen,
+                color: kAppColourBlue,
               ),
             ],
           ),
