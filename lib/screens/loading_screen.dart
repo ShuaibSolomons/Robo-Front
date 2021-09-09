@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:robo_front/http/robo_back_client.dart';
@@ -15,20 +16,37 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   BaseRoboResponse menu;
 
+  final _auth = FirebaseAuth.instance;
+  User loggedInUser;
+
+  bool getCurrentUser() {
+    final user = _auth.currentUser;
+    if (user != null) {
+      loggedInUser = user;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    getMenu(1, 1);
+    if (getCurrentUser()) {
+      getMenu(1, 1);
+    } else {
+      Navigator.pop(context);
+    }
   }
 
   void getMenu(int storeID, int companyID) async {
     menu = await RoboBackClient().getMenu(storeID, companyID);
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
       return MainScreen(
         productTypes: menu,
       );
-    }));
+    }), (route) => false);
   }
 
   @override
