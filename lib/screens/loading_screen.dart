@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:robo_front/http/robo_back_client.dart';
 import 'package:robo_front/model/base_response.dart';
+import 'package:robo_front/reusableResources/error_dialogue.dart';
 import 'package:robo_front/reusableResources/loading_widget.dart';
 import 'package:robo_front/screens/home_screen.dart';
 import 'package:robo_front/screens/main_screen.dart';
@@ -40,13 +41,24 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getMenu(int storeID, int companyID) async {
-    menu = await RoboBackClient().getMenu(storeID, companyID);
+    try {
+      menu = await RoboBackClient().getMenu(storeID, companyID);
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) {
+        return MainScreen(
+          productTypes: menu,
+        );
+      }), (route) => false);
+    } catch (e) {
+      print(e);
 
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
-      return MainScreen(
-        productTypes: menu,
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => ErrorDialogueRobo(),
+      ).then(
+        (value) => Navigator.pop(context),
       );
-    }), (route) => false);
+    }
   }
 
   @override
