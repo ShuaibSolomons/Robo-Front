@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:robo_front/reusableResources/rounded_button.dart';
 import 'package:robo_front/screens/authentication/login_screen.dart';
 import 'package:robo_front/screens/authentication/registration_screen.dart';
-import 'package:robo_front/screens/loading_screen.dart';
 import 'package:robo_front/utils/constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 

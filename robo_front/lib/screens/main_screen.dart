@@ -5,7 +5,6 @@ import 'package:robo_front/model/basket_item.dart';
 import 'package:robo_front/model/cart_purchase_preview.dart';
 import 'package:robo_front/reusableResources/alert_dialogue.dart';
 import 'package:robo_front/reusableResources/info_dialogue.dart';
-import 'package:robo_front/screens/account_screen.dart';
 import 'package:robo_front/screens/cart_edit_screen.dart';
 import 'package:robo_front/screens/recent_purchases_screen.dart';
 import 'package:robo_front/utils/constants.dart';

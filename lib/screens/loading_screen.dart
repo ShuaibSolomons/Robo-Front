@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:robo_front/http/robo_back_client.dart';
 import 'package:robo_front/model/base_response.dart';
 import 'package:robo_front/reusableResources/error_dialogue.dart';
 import 'package:robo_front/reusableResources/loading_widget.dart';
-import 'package:robo_front/screens/home_screen.dart';
 import 'package:robo_front/screens/main_screen.dart';
 
 class LoadingScreen extends StatefulWidget {

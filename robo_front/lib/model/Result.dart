@@ -12,17 +12,17 @@ class Result {
 
   Result.fromJson(Map<String, dynamic> json) {
     if (json['productTypes'] != null) {
-      productTypes = new List<ProductType>();
+      productTypes = [];
       json['productTypes'].forEach((v) {
         productTypes.add(new ProductType.fromJson(v));
       });
     } else if (json['products'] != null) {
-      products = new List<Product>();
+      products = [];
       json['products'].forEach((v) {
         products.add(new Product.fromJson(v));
       });
     } else if (json['basketItems'] != null) {
-      basketItems = new List<BasketItem>();
+      basketItems = [];
       json['basketItems'].forEach((v) {
         basketItems.add(new BasketItem.fromJson(v));
       });

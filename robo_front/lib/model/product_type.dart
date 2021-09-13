@@ -26,7 +26,7 @@ class ProductType {
     companyID = json['companyID'];
     createdOn = json['createdOn'];
     if (json['productItem'] != null) {
-      productItem = new List<Product>();
+      productItem = [];
       json['productItem'].forEach((v) {
         productItem.add(new Product.fromJson(v));
       });

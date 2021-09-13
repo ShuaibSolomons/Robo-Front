@@ -1,5 +1,3 @@
-import 'package:robo_front/model/basket_item.dart';
-
 import 'results.dart';
 import 'status.dart';
 
