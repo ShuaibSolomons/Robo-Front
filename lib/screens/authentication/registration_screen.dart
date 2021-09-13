@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:robo_front/reusableResources/rounded_button.dart';
 import 'package:robo_front/screens/loading_screen.dart';
+import 'package:robo_front/screens/register/company_selection.dart';
+import 'package:robo_front/screens/register/user_detail.dart';
 import 'package:robo_front/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -83,7 +85,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           setState(() {
                             _spinner = false;
                           });
-                          Navigator.pushNamed(context, LoadingScreen.id);
+                          Navigator.pushNamed(context, UserDetail.id);
                         }
                         setState(() {
                           _spinner = false;
