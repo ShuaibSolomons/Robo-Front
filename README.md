@@ -7,6 +7,12 @@ Robo-Front will act as an application idea to allow me to learn how flutter work
 - Basics on putting widgets together
 - Basics on theaming
 - Navigating to different pages
+
+- Dynamic widget creation
+- Widget re-usability
+- API connection
+- Screen routing
+- Firebase auth, firestore
 - To be continued...
 
 <!-- cmd + shift + P = launch emulator -->
