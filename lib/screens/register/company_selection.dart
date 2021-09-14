@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:robo_front/model/company_creation/company_creation.dart';
 import 'package:robo_front/reusableResources/rounded_button.dart';
 import 'package:robo_front/screens/loading_screen.dart';
 import 'package:robo_front/screens/register/company_registration.dart';

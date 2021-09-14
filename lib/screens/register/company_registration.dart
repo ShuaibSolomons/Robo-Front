@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:robo_front/http/robo_back_client.dart';
+import 'package:robo_front/model/base_response.dart';
+import 'package:robo_front/model/company_creation/company_creation.dart';
+import 'package:robo_front/model/store_creation/store_creation_request.dart';
 import 'package:robo_front/reusableResources/rounded_button.dart';
+import 'package:robo_front/screens/loading_screen.dart';
 import 'package:robo_front/utils/constants.dart';
 
 class CompanyRegistration extends StatefulWidget {
@@ -92,7 +97,6 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                 height: 8.0,
               ),
               TextField(
-                obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
                   if (value != null) {
@@ -112,14 +116,31 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                     setState(() {
                       _spinner = true;
                     });
-                    // final validUser = await _auth.signInWithEmailAndPassword(
-                    //     email: email, password: password);
-                    // if (validUser != null) {
-                    //   setState(() {
-                    //     _spinner = false;
-                    //   });
-                    //   Navigator.pushNamed(context, LoadingScreen.id);
-                    // }
+
+                    BaseRoboResponse response =
+                        await RoboBackClient().createCompany(
+                      CompanyCreation(
+                          companyName: companyName,
+                          originCountry: originCountry),
+                    );
+
+                    print(response);
+
+                    if (response.status.id == 0) {
+                      BaseRoboResponse storeResponse =
+                          await RoboBackClient().createStore(
+                        StoreCreationRequest(
+                            storeNumber: storeNumber,
+                            storeName: storeName,
+                            storeAddress: storeAddress,
+                            employeeID: _auth.currentUser.uid,
+                            companyID: response.result.companyDetail.companyID),
+                      );
+                      if (storeResponse.status.id == 0) {
+                        Navigator.pushNamed(context, LoadingScreen.id);
+                      }
+                    }
+
                     setState(() {
                       _spinner = false;
                     });
