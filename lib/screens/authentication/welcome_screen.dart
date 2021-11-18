@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:robo_front/reusableResources/rounded_button.dart';
 import 'package:robo_front/screens/authentication/login_screen.dart';
@@ -16,6 +17,19 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation animation;
+
+  final _auth = FirebaseAuth.instance;
+  User loggedInUser;
+
+  bool getCurrentUser() {
+    final user = _auth.currentUser;
+    if (user != null) {
+      loggedInUser = user;
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   void initState() {

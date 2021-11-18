@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:robo_front/model/base_request.dart';
+import 'package:robo_front/model/company_creation/company_creation.dart';
+import 'package:robo_front/model/store_creation/store_creation_request.dart';
 import '../model/base_response.dart';
 
 class RoboBackClient {
@@ -65,5 +67,41 @@ class RoboBackClient {
     }
     //print('Response status: ${response.statusCode}');
     //print('Response body: ${response.body}');
+  }
+
+  Future<BaseRoboResponse> createCompany(CompanyCreation request) async {
+    var url = Uri.http(protocol, '/api/institution/company');
+    var response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Consumer-Platform': 'pos',
+      },
+      body: jsonEncode(request.toJson()),
+    );
+
+    if (response.statusCode == 201) {
+      return BaseRoboResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return null;
+    }
+  }
+
+  Future<BaseRoboResponse> createStore(StoreCreationRequest request) async {
+    var url = Uri.http(protocol, '/api/institution/store');
+    var response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Consumer-Platform': 'pos',
+      },
+      body: jsonEncode(request.toJson()),
+    );
+
+    if (response.statusCode == 201) {
+      return BaseRoboResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return null;
+    }
   }
 }

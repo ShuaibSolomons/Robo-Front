@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:robo_front/model/basket_item.dart';
-import 'package:robo_front/reusableResources/counter_widget.dart';
 
 class ListItemWidget extends StatelessWidget {
   final BasketItem item;
