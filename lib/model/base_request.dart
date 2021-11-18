@@ -11,7 +11,7 @@ class BaseRoboRequest {
   BaseRoboRequest.fromJson(Map<String, dynamic> json) {
     scope = json['scope'] != null ? new Scope.fromJson(json['scope']) : null;
     if (json['basketPurchase'] != null) {
-      basketPurchase = new List<BasketItem>();
+      basketPurchase = [];
       json['basketPurchase'].forEach((v) {
         basketPurchase.add(new BasketItem.fromJson(v));
       });
