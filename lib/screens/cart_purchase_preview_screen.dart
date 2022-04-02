@@ -11,10 +11,11 @@ import 'package:robo_front/reusableResources/loading_widget.dart';
 import 'package:robo_front/utils/constants.dart';
 import 'package:robo_front/utils/enumeration.dart';
 import '../http/robo_back_client.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CartPurchasePreviewScreen extends StatefulWidget {
   const CartPurchasePreviewScreen(
-      {@required this.basketItems, this.totalBasketAmount});
+      {required this.basketItems, required this.totalBasketAmount});
 
   final List<BasketItem> basketItems;
   final double totalBasketAmount;
@@ -27,7 +28,7 @@ class CartPurchasePreviewScreen extends StatefulWidget {
 class _CartPurchasePreviewScreenState extends State<CartPurchasePreviewScreen> {
   bool _isLoading = false;
 
-  List _buildList() {
+  List<Widget> _buildList() {
     List<Widget> listItems = [];
     widget.basketItems.forEach(
       (element) {
@@ -37,10 +38,12 @@ class _CartPurchasePreviewScreenState extends State<CartPurchasePreviewScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '${element.productName}',
-                    style: TextStyle(
-                      color: Colors.black,
+                  Flexible(
+                    child: Text(
+                      '${element.productName}',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   Text(
@@ -94,7 +97,7 @@ class _CartPurchasePreviewScreenState extends State<CartPurchasePreviewScreen> {
                           ),
                           Container(
                             child: Text(
-                              '${widget.totalBasketAmount}',
+                              '${widget.totalBasketAmount.toStringAsFixed(2)}',
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
@@ -132,16 +135,18 @@ class _CartPurchasePreviewScreenState extends State<CartPurchasePreviewScreen> {
                               context: context,
                               builder: (BuildContext context) =>
                                   AlertDialogueRobo(
-                                      clearAnimatedList: () {
-                                        onPopNavigation(
-                                            context,
-                                            CartPurchasePreviewModel(
-                                                screemRoute:
-                                                    CartPurchasePreviewResponse
-                                                        .CLEAR));
-                                      },
-                                      title: kClearBasketTitle,
-                                      content: kClearBasketContent),
+                                clearAnimatedList: () {
+                                  onPopNavigation(
+                                      context,
+                                      CartPurchasePreviewModel(
+                                          screemRoute:
+                                              CartPurchasePreviewResponse
+                                                  .CLEAR));
+                                },
+                                title: kClearBasketTitle,
+                                content: kClearBasketContent,
+                                setBasketState: null,
+                              ),
                             );
                           },
                           child: ElevatedButtonRound(
@@ -175,7 +180,7 @@ class _CartPurchasePreviewScreenState extends State<CartPurchasePreviewScreen> {
 
 void purchaseBasket(BuildContext context, List<BasketItem> basketItems) async {
   BaseRoboRequest request = createRequest(basketItems);
-  BaseRoboResponse response = await RoboBackClient().purchaseBasket(request);
+  BaseRoboResponse? response = await RoboBackClient().purchaseBasket(request);
   if (response != null) {
     onPopNavigation(
         context,
@@ -218,12 +223,13 @@ void onPopNavigation(
 }
 
 BaseRoboRequest createRequest(List<BasketItem> basketItems) {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   StoreDetail storeDetail = new StoreDetail(
       storeID: '0001',
-      employeeID: '00000000-shu-aib-00000000',
+      employeeID: auth.currentUser!.uid,
       transactionID: 1,
       countryCode: 'ZA');
-  Scope scope = new Scope(storeDetail: storeDetail, companyID: 1);
+  Scope scope = new Scope(storeDetail: storeDetail, companyID: 13);
 
   BaseRoboRequest request =
       new BaseRoboRequest(scope: scope, basketPurchase: basketItems);

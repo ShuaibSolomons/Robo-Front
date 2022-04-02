@@ -1,11 +1,14 @@
 class StoreDetail {
-  String storeID;
-  String employeeID;
-  int transactionID;
-  String countryCode;
+  late String storeID;
+  late String employeeID;
+  late int transactionID;
+  late String countryCode;
 
   StoreDetail(
-      {this.storeID, this.employeeID, this.transactionID, this.countryCode});
+      {required this.storeID,
+      required this.employeeID,
+      required this.transactionID,
+      required this.countryCode});
 
   StoreDetail.fromJson(Map<String, dynamic> json) {
     storeID = json['storeID'];

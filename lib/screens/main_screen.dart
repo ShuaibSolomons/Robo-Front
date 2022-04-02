@@ -1,8 +1,13 @@
+import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:robo_front/http/robo_back_client.dart';
 import 'package:robo_front/model/base_response.dart';
 import 'package:robo_front/model/basket_item.dart';
 import 'package:robo_front/model/cart_purchase_preview.dart';
+import 'package:robo_front/model/results.dart';
 import 'package:robo_front/reusableResources/alert_dialogue.dart';
 import 'package:robo_front/reusableResources/info_dialogue.dart';
 import 'package:robo_front/screens/cart_edit_screen.dart';
@@ -14,33 +19,54 @@ import 'cart_purchase_preview_screen.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({@required this.productTypes});
+  const MainScreen({required this.productTypes});
 
   final BaseRoboResponse productTypes;
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen>
+    with SingleTickerProviderStateMixin {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
-  int currentIndex;
+  late AnimationController _animationController;
+
+  String _scanBarcode = 'Unknown';
+
+  late int currentIndex;
   double totalBasketAmount = 0;
-  BaseRoboResponse displaydetails;
+  late BaseRoboResponse displaydetails;
   List<BasketItem> basketItems = [];
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 260),
+    );
+
+    final curvedAnimation =
+        CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
+
+    displaydetails = widget.productTypes;
+    super.initState();
+    currentIndex = 1;
+    //print(productTypes.result.productTypes[0].storeID);
+  }
 
   void setFullState(
       double _totalBasketAmount, List<BasketItem> _basketList, int index) {
     setBasketState(_totalBasketAmount, _basketList);
     setState(() {
-      _listKey.currentState
+      _listKey.currentState!
           .insertItem(basketItems.length == 0 ? 0 : basketItems.length - 1);
     });
   }
 
   void clearAnimatedList() {
     for (var i = 0; i <= basketItems.length - 1; i++) {
-      _listKey.currentState.removeItem(0,
+      _listKey.currentState!.removeItem(0,
           (BuildContext context, Animation<double> animation) {
         return Container();
       });
@@ -92,30 +118,18 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  @override
-  void initState() {
-    displaydetails = widget.productTypes;
-    super.initState();
-    currentIndex = 1;
-    //print(productTypes.result.productTypes[0].storeID);
-  }
-
   void changePage(int index) {
     setState(() {
       currentIndex = index;
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: kIconImage,
-      ),
-      floatingActionButton: GestureDetector(
-        onLongPress: () {
+  Widget clearBasket() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: (() {
           if (basketItems.length != 0) {
-            return showDialog(
+            showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialogueRobo(
                   clearAnimatedList: clearAnimatedList,
@@ -126,18 +140,55 @@ class _MainScreenState extends State<MainScreen> {
           } else {
             print('Empty Basket');
           }
-        },
-        child: FloatingActionButton(
-          onPressed: () {
-            if (basketItems.length != 0) {
-              purchaseCart(basketItems);
-            }
-          },
-          child: Icon(Icons.bolt),
-          backgroundColor: Colors.white,
-        ),
+        }),
+        tooltip: 'Clear Basket',
+        child: Icon(Icons.clear_all),
+        heroTag: "clearBasket",
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+    );
+  }
+
+  Widget purchaseBasket() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: (() {
+          if (basketItems.length != 0) {
+            purchaseCart(basketItems);
+          }
+        }),
+        tooltip: 'Purchase Basket',
+        child: Icon(Icons.shopping_cart),
+        heroTag: "purchaseBasket",
+      ),
+    );
+  }
+
+  Widget scanItem() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: (() {
+          scanBarcodeNormal();
+        }),
+        tooltip: 'Scan Item',
+        child: Icon(Icons.qr_code),
+        heroTag: "scanItem",
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: kIconImage,
+      ),
+      floatingActionButton: AnimatedFloatingActionButton(
+        fabButtons: <Widget>[scanItem(), purchaseBasket()],
+        colorStartAnimation: kAppColourGreen,
+        colorEndAnimation: Colors.white,
+        animatedIconData: AnimatedIcons.menu_close,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: BubbleBottomBar(
         backgroundColor: ThemeData.dark().backgroundColor,
         opacity: .2,
@@ -145,7 +196,6 @@ class _MainScreenState extends State<MainScreen> {
         onTap: changePage,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         elevation: 8,
-        fabLocation: BubbleBottomBarFabLocation.end,
         hasNotch: true,
         hasInk: true,
         inkColor: kAppColourGreen,
@@ -182,11 +232,11 @@ class _MainScreenState extends State<MainScreen> {
           BubbleBottomBarItem(
               backgroundColor: Colors.black,
               icon: Icon(
-                Icons.menu,
+                Icons.shopping_bag_outlined,
                 color: Colors.black,
               ),
               activeIcon: Icon(
-                Icons.menu,
+                Icons.shopping_bag_outlined,
                 color: Colors.white,
               ),
               title: Text(
@@ -195,9 +245,6 @@ class _MainScreenState extends State<MainScreen> {
               ))
         ],
       ),
-      // body: currentIndex == 0
-      //     ? purchase
-      //     : (currentIndex == 1 ? RecentPurchasesScreen() : AccountScreen()),
       body: IndexedStack(
         children: [
           HomeScreen(
@@ -217,5 +264,48 @@ class _MainScreenState extends State<MainScreen> {
         index: currentIndex,
       ),
     );
+  }
+
+  void addItem(Result result) {
+    if (result.product != null) {
+      basketItems.add(
+        new BasketItem(
+          index: basketItems.length,
+          productID: result.product.productID,
+          amountValue: result.product.salePrice,
+          amount: result.product.salePrice.toString(),
+          productName: result.product.productName,
+        ),
+      );
+      setFullState(
+          (totalBasketAmount + result.product.salePrice), basketItems, 0);
+    }
+  }
+
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    BaseRoboResponse response = await RoboBackClient().getProductByBarcode(
+        13, barcodeScanRes.replaceAll(new RegExp(r'[^\w\s]+'), ''));
+    setState(() {
+      print("This is the barcode: " + barcodeScanRes);
+      _scanBarcode = barcodeScanRes;
+      if (response != null && response.result != null) {
+        addItem(response.result);
+      } else {}
+    });
   }
 }

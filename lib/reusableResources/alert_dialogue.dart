@@ -4,13 +4,13 @@ import 'package:robo_front/utils/constants.dart';
 
 class AlertDialogueRobo extends StatelessWidget {
   const AlertDialogueRobo(
-      {@required this.clearAnimatedList,
+      {required this.clearAnimatedList,
       this.setBasketState,
-      @required this.title,
-      @required this.content});
+      required this.title,
+      required this.content});
 
   final Function clearAnimatedList;
-  final Function setBasketState;
+  final Function? setBasketState;
   final String title;
   final String content;
 
@@ -32,7 +32,7 @@ class AlertDialogueRobo extends StatelessWidget {
             Navigator.pop(context, 'Yes');
             clearAnimatedList();
             if (setBasketState != null) {
-              setBasketState(0, <BasketItem>[]);
+              setBasketState!(0, <BasketItem>[]);
             }
           },
           child: const Text(

@@ -1,11 +1,11 @@
 class CompanyDetail {
-  int companyID;
-  String companyName;
-  String originCountry;
-  int amountOfEmployees;
-  bool active;
+  late int companyID;
+  late String companyName;
+  late String originCountry;
+  late int amountOfEmployees;
+  late bool active;
 
-  CompanyDetail({this.companyName, this.originCountry});
+  CompanyDetail({required this.companyName, required this.originCountry});
 
   CompanyDetail.fromJson(Map<String, dynamic> json) {
     companyID = json['companyID'];

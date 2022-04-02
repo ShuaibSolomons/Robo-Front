@@ -5,10 +5,10 @@ import 'base_response.dart';
 
 class CartPurchasePreviewModel {
   CartPurchasePreviewResponse screemRoute;
-  PurchaseResponseStatus responseStatus;
+  PurchaseResponseStatus? responseStatus;
 
-  BaseRoboResponse response;
+  BaseRoboResponse? response;
 
   CartPurchasePreviewModel(
-      {@required this.screemRoute, this.responseStatus, this.response});
+      {required this.screemRoute, this.responseStatus, this.response});
 }

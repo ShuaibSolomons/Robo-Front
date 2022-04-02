@@ -1,24 +1,24 @@
 class StoreDetailResponse {
-  int storeID;
-  String storeNumber;
-  String storeName;
-  String storeAddress;
-  String storeLng;
-  String storeLat;
-  String employeeID;
-  int companyID;
-  bool active;
+  late int storeID;
+  late String storeNumber;
+  late String storeName;
+  late String storeAddress;
+  late String storeLng;
+  late String storeLat;
+  late String employeeID;
+  late int companyID;
+  late bool active;
 
   StoreDetailResponse(
-      {this.storeID,
-      this.storeNumber,
-      this.storeName,
-      this.storeAddress,
-      this.storeLng,
-      this.storeLat,
-      this.employeeID,
-      this.companyID,
-      this.active});
+      {required this.storeID,
+      required this.storeNumber,
+      required this.storeName,
+      required this.storeAddress,
+      required this.storeLng,
+      required this.storeLat,
+      required this.employeeID,
+      required this.companyID,
+      required this.active});
 
   StoreDetailResponse.fromJson(Map<String, dynamic> json) {
     storeID = json['storeID'];

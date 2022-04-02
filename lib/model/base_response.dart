@@ -2,18 +2,18 @@ import 'results.dart';
 import 'status.dart';
 
 class BaseRoboResponse {
-  String reference;
-  Status status;
-  Result result;
+  late String reference;
+  late Status status;
+  late Result result;
 
-  BaseRoboResponse({this.status, this.result});
+  BaseRoboResponse({required this.status, required this.result});
 
   BaseRoboResponse.fromJson(Map<String, dynamic> json) {
     reference = json['reference'];
     status =
-        json['status'] != null ? new Status.fromJson(json['status']) : null;
+        (json['status'] != null ? new Status.fromJson(json['status']) : null)!;
     result =
-        json['result'] != null ? new Result.fromJson(json['result']) : null;
+        (json['result'] != null ? new Result.fromJson(json['result']) : null)!;
   }
 
   Map<String, dynamic> toJson() {

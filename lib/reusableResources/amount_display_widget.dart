@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AmountDisplayWidget extends StatelessWidget {
-  const AmountDisplayWidget({@required this.totalBasketAmount});
+  const AmountDisplayWidget({required this.totalBasketAmount});
 
   final double totalBasketAmount;
 
@@ -16,7 +16,7 @@ class AmountDisplayWidget extends StatelessWidget {
             decoration: BoxDecoration(),
             child: Center(
               child: Text(
-                totalBasketAmount.toString(),
+                "R " + totalBasketAmount.toStringAsFixed(2),
                 style: TextStyle(fontSize: 40.0),
               ),
             ),

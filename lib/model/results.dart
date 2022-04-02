@@ -6,13 +6,14 @@ import 'product_type.dart';
 import 'product.dart';
 
 class Result {
-  List<ProductType> productTypeDetails;
-  List<Product> products;
-  List<BasketItem> basketItems;
-  CompanyDetail companyDetail;
-  StoreDetailResponse storeDetail;
+  late List<ProductType> productTypeDetails;
+  late List<Product> products;
+  late Product product;
+  late List<BasketItem> basketItems;
+  late CompanyDetail companyDetail;
+  late StoreDetailResponse storeDetail;
 
-  Result({this.productTypeDetails, this.products});
+  Result({required this.productTypeDetails, required this.products});
 
   Result.fromJson(Map<String, dynamic> json) {
     if (json['productTypeDetails'] != null) {
@@ -25,6 +26,8 @@ class Result {
       json['products'].forEach((v) {
         products.add(new Product.fromJson(v));
       });
+    } else if (json['product'] != null) {
+      product = new Product.fromJson(json['product']);
     } else if (json['basketItems'] != null) {
       basketItems = [];
       json['basketItems'].forEach((v) {
@@ -48,8 +51,10 @@ class Result {
       data['basketItems'] = this.basketItems.map((v) => v.toJson()).toList();
     } else if (this.companyDetail != null) {
       data['companyDetail'] = this.basketItems.map((v) => v.toJson());
-    } else if (this.companyDetail != null) {
+    } else if (this.storeDetail != null) {
       data['storeDetail'] = this.basketItems.map((v) => v.toJson());
+    } else if (this.product != null) {
+      data['product'] = this.basketItems.map((v) => v.toJson());
     }
     return data;
   }

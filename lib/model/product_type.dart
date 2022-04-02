@@ -1,22 +1,22 @@
 import 'package:robo_front/model/product.dart';
 
 class ProductType {
-  int productTypeFilterID;
-  int productTypeID;
-  String productTypeName;
-  int storeID;
-  int companyID;
-  String createdOn;
-  List<Product> productItem;
+  late int productTypeFilterID;
+  late int productTypeID;
+  late String productTypeName;
+  late int storeID;
+  late int companyID;
+  late String createdOn;
+  late List<Product> productItem;
 
   ProductType(
-      {this.productTypeFilterID,
-      this.productTypeID,
-      this.productTypeName,
-      this.storeID,
-      this.companyID,
-      this.createdOn,
-      this.productItem});
+      {required this.productTypeFilterID,
+      required this.productTypeID,
+      required this.productTypeName,
+      required this.storeID,
+      required this.companyID,
+      required this.createdOn,
+      required this.productItem});
 
   ProductType.fromJson(Map<String, dynamic> json) {
     productTypeFilterID = json['productTypeFilterID'];

@@ -13,10 +13,10 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  BaseRoboResponse menu;
+  late BaseRoboResponse menu;
 
   final _auth = FirebaseAuth.instance;
-  User loggedInUser;
+  late User loggedInUser;
 
   bool getCurrentUser() {
     final user = _auth.currentUser;
@@ -32,15 +32,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
     if (getCurrentUser()) {
-      getMenu(1, 1);
+      getMenu(9, 13, loggedInUser.uid);
     } else {
       Navigator.pop(context);
     }
   }
 
-  void getMenu(int storeID, int companyID) async {
+  void getMenu(int storeID, int companyID, String employeeID) async {
     try {
-      menu = await RoboBackClient().getMenu(storeID, companyID);
+      menu = await RoboBackClient().getMenu(storeID, companyID, employeeID);
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) {
         return MainScreen(
@@ -61,6 +61,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingWidget();
+    return LoadingWidget(
+      setColor: null,
+    );
   }
 }

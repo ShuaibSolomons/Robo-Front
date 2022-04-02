@@ -6,7 +6,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  double amount;
+  late double amount;
 
   @override
   Widget build(BuildContext context) {

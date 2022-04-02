@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:robo_front/utils/constants.dart';
 
 class ElevatedButtonRound extends StatelessWidget {
-  const ElevatedButtonRound(
-      {@required this.onPressedDo, @required this.wording});
+  const ElevatedButtonRound({required this.onPressedDo, required this.wording});
 
   final Function onPressedDo;
   final String wording;

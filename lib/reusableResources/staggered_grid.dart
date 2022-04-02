@@ -3,7 +3,7 @@ import 'package:robo_front/model/base_response.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class StaggeredGrid extends StatelessWidget {
-  const StaggeredGrid({@required this.display, @required this.onPress});
+  const StaggeredGrid({required this.display, required this.onPress});
 
   final BaseRoboResponse display;
   final Function onPress;

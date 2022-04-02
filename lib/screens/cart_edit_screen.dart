@@ -7,10 +7,10 @@ import 'package:robo_front/reusableResources/list_item_widget.dart';
 class CartEditScreen extends StatelessWidget {
   static const cartEditScreen = 2;
   CartEditScreen({
-    @required this.basketItems,
-    @required this.totalBasketAmount,
-    @required this.setBasket,
-    @required this.listKey,
+    required this.basketItems,
+    required this.totalBasketAmount,
+    required this.setBasket,
+    required this.listKey,
   });
 
   // This will be the main basket which will be an overview of all
@@ -59,7 +59,7 @@ class CartEditScreen extends StatelessWidget {
     basketItems.removeAt(index);
     setBasket((totalBasketAmount - removedItem.amountValue), basketItems);
 
-    listKey.currentState.removeItem(
+    listKey.currentState!.removeItem(
       index,
       (context, animation) => ListItemWidget(
           item: removedItem, animation: animation, onClicked: () {}),

@@ -8,19 +8,23 @@ import 'package:robo_front/reusableResources/rounded_button.dart';
 import 'package:robo_front/screens/loading_screen.dart';
 import 'package:robo_front/utils/constants.dart';
 
-class CompanyRegistration extends StatefulWidget {
-  static String id = 'company_registration';
+class CompanySetup extends StatefulWidget {
+  static String id = 'company_creation';
   @override
-  _CompanyRegistrationState createState() => _CompanyRegistrationState();
+  _CompanySetupState createState() => _CompanySetupState();
 }
 
-class _CompanyRegistrationState extends State<CompanyRegistration> {
+class _CompanySetupState extends State<CompanySetup> {
   @override
   Widget build(BuildContext context) {
     final _auth = FirebaseAuth.instance;
     bool _spinner = false;
 
-    String companyName, originCountry, storeNumber, storeName, storeAddress;
+    String companyName = "",
+        originCountry = "",
+        storeNumber = "",
+        storeName = "",
+        storeAddress = "";
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(24.0),
@@ -117,7 +121,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                       _spinner = true;
                     });
 
-                    BaseRoboResponse response =
+                    BaseRoboResponse? response =
                         await RoboBackClient().createCompany(
                       CompanyCreation(
                           companyName: companyName,
@@ -126,17 +130,17 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
 
                     print(response);
 
-                    if (response.status.id == 0) {
-                      BaseRoboResponse storeResponse =
+                    if (response!.status.id == 0) {
+                      BaseRoboResponse? storeResponse =
                           await RoboBackClient().createStore(
                         StoreCreationRequest(
                             storeNumber: storeNumber,
                             storeName: storeName,
                             storeAddress: storeAddress,
-                            employeeID: _auth.currentUser.uid,
+                            employeeID: _auth.currentUser!.uid,
                             companyID: response.result.companyDetail.companyID),
                       );
-                      if (storeResponse.status.id == 0) {
+                      if (storeResponse!.status.id == 0) {
                         Navigator.pushNamed(context, LoadingScreen.id);
                       }
                     }

@@ -1,16 +1,16 @@
 class StoreCreationRequest {
-  String storeNumber;
-  String storeName;
-  String storeAddress;
-  String employeeID;
-  int companyID;
+  late String storeNumber;
+  late String storeName;
+  late String storeAddress;
+  late String employeeID;
+  late int companyID;
 
   StoreCreationRequest(
-      {this.storeNumber,
-      this.storeName,
-      this.storeAddress,
-      this.employeeID,
-      this.companyID});
+      {required this.storeNumber,
+      required this.storeName,
+      required this.storeAddress,
+      required this.employeeID,
+      required this.companyID});
 
   StoreCreationRequest.fromJson(Map<String, dynamic> json) {
     storeNumber = json['storeNumber'];

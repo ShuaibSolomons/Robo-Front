@@ -1,15 +1,15 @@
 import 'package:robo_front/model/store_detail.dart';
 
 class Scope {
-  StoreDetail storeDetail;
-  int companyID;
+  late StoreDetail storeDetail;
+  late int companyID;
 
-  Scope({this.storeDetail, this.companyID});
+  Scope({required this.storeDetail, required this.companyID});
 
   Scope.fromJson(Map<String, dynamic> json) {
-    storeDetail = json['storeDetail'] != null
+    storeDetail = (json['storeDetail'] != null
         ? new StoreDetail.fromJson(json['storeDetail'])
-        : null;
+        : null)!;
     companyID = json['companyID'];
   }
 

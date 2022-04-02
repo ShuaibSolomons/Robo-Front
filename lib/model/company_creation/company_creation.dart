@@ -1,8 +1,8 @@
 class CompanyCreation {
-  String companyName;
-  String originCountry;
+  late String companyName;
+  late String originCountry;
 
-  CompanyCreation({this.companyName, this.originCountry});
+  CompanyCreation({required this.companyName, required this.originCountry});
 
   CompanyCreation.fromJson(Map<String, dynamic> json) {
     companyName = json['companyName'];

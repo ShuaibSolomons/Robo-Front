@@ -7,9 +7,7 @@ class ListItemWidget extends StatelessWidget {
   final VoidCallback onClicked;
 
   const ListItemWidget(
-      {@required this.item,
-      @required this.animation,
-      @required this.onClicked});
+      {required this.item, required this.animation, required this.onClicked});
 
   @override
   Widget build(BuildContext context) {

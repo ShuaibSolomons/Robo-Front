@@ -1,8 +1,8 @@
 class Status {
-  int id;
-  String detail;
+  late int id;
+  late String detail;
 
-  Status({this.id, this.detail});
+  Status({required this.id, required this.detail});
 
   Status.fromJson(Map<String, dynamic> json) {
     id = json['id'];

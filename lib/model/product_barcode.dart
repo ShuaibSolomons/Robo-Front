@@ -1,8 +1,8 @@
 class ProductBarcode {
-  String barcode;
-  String serial;
+  late String barcode;
+  late String serial;
 
-  ProductBarcode({this.barcode, this.serial});
+  ProductBarcode({required this.barcode, required this.serial});
 
   ProductBarcode.fromJson(Map<String, dynamic> json) {
     barcode = json['barcode'];

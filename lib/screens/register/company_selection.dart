@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:robo_front/model/company_creation/company_creation.dart';
 import 'package:robo_front/reusableResources/rounded_button.dart';
 import 'package:robo_front/screens/loading_screen.dart';
-import 'package:robo_front/screens/register/company_registration.dart';
+import 'package:robo_front/screens/register/company_setup.dart';
 import 'package:robo_front/utils/constants.dart';
 
 class CompanySelection extends StatelessWidget {
@@ -18,18 +17,18 @@ class CompanySelection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RoundedButton(
-              title: 'Company Creation',
+              title: 'Company Registration',
               onPunch: () {
                 Navigator.pushNamed(context, LoadingScreen.id);
               },
-              color: kAppColourBlue,
+              color: kAppColourGreen,
             ),
             RoundedButton(
-              title: 'Company Registration',
+              title: 'Company Creation',
               onPunch: () {
-                Navigator.pushNamed(context, CompanyRegistration.id);
+                Navigator.pushNamed(context, CompanySetup.id);
               },
-              color: kAppColourGreen,
+              color: kAppColourBlue,
             ),
           ],
         ),

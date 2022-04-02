@@ -5,7 +5,7 @@ import 'package:robo_front/utils/constants.dart';
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({this.setColor});
 
-  final Color setColor;
+  final Color? setColor;
 
   @override
   Widget build(BuildContext context) {

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 class CounterWidget extends StatelessWidget {
   const CounterWidget(
-      {@required this.count,
-      @required this.addition,
-      @required this.subtraction});
+      {required this.count, required this.addition, required this.subtraction});
 
   final int count;
   final Function addition, subtraction;

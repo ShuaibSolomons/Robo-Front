@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:robo_front/utils/constants.dart';
 
 class InfoDialogueRobo extends StatelessWidget {
-  const InfoDialogueRobo({@required this.title, @required this.content});
+  const InfoDialogueRobo({required this.title, required this.content});
 
   final String title, content;
 

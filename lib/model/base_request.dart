@@ -3,13 +3,13 @@ import 'package:robo_front/model/scope.dart';
 import 'basket_item.dart';
 
 class BaseRoboRequest {
-  Scope scope;
-  List<BasketItem> basketPurchase;
+  late Scope scope;
+  late List<BasketItem> basketPurchase;
 
-  BaseRoboRequest({this.scope, this.basketPurchase});
+  BaseRoboRequest({required this.scope, required this.basketPurchase});
 
   BaseRoboRequest.fromJson(Map<String, dynamic> json) {
-    scope = json['scope'] != null ? new Scope.fromJson(json['scope']) : null;
+    scope = (json['scope'] != null ? new Scope.fromJson(json['scope']) : null)!;
     if (json['basketPurchase'] != null) {
       basketPurchase = [];
       json['basketPurchase'].forEach((v) {

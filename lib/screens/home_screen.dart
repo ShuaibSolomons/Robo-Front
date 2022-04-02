@@ -10,10 +10,10 @@ import 'package:robo_front/utils/constants.dart';
 class HomeScreen extends StatefulWidget {
   static const homeScreenIndex = 0;
   const HomeScreen(
-      {@required this.productTypes,
-      @required this.setBasket,
-      @required this.totalBasketAmount,
-      @required this.basketItems});
+      {required this.productTypes,
+      required this.setBasket,
+      required this.totalBasketAmount,
+      required this.basketItems});
 
   final Function setBasket;
   final double totalBasketAmount;
@@ -26,13 +26,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomePageState extends State<HomeScreen> {
   var test;
-  int displayLengthProductTypes, displayLengthProducts, currentIndex;
-  bool isProductType;
+  late int displayLengthProductTypes, displayLengthProducts, currentIndex;
+  late bool isProductType;
 
-  BaseRoboResponse displaydetails;
-  List<ProductType> productTypes;
-  List<Product> products;
-  List<BasketItem> basketItems = [];
+  late BaseRoboResponse displaydetails;
+  late List<ProductType> productTypes;
+  late List<Product> products;
+  late List<BasketItem> basketItems = [];
 
   @override
   void initState() {
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomeScreen> {
           Expanded(
             flex: 8,
             child: Container(
-              margin: EdgeInsets.all(7.0),
+              margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0),
               child: StaggeredGridView.countBuilder(
                 crossAxisCount: 4,
                 itemCount: isProductType
@@ -136,18 +136,24 @@ class _HomePageState extends State<HomeScreen> {
                         )
                       ],
                     ),
-                    child: Center(
-                      child: new Text(
-                        isProductType
-                            ? productTypes[index].productTypeName
-                            : products[index].productName,
-                        style: TextStyle(fontSize: 20.0),
+                    child: Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: new Text(
+                            isProductType
+                                ? productTypes[index].productTypeName
+                                : products[index].productName,
+                            style: TextStyle(fontSize: 16.0),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
                 staggeredTileBuilder: (int index) =>
-                    new StaggeredTile.count(2, index.isEven ? 1.3 : 1.1),
+                    new StaggeredTile.count(2, index.isEven ? 1.2 : 1.2),
                 mainAxisSpacing: 4.0,
                 crossAxisSpacing: 4.0,
               ),

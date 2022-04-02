@@ -17,8 +17,8 @@ class _UserDetailState extends State<UserDetail> {
   final _firestore = FirebaseFirestore.instance;
 
   bool _spinner = false;
-  String fullname, msisdn;
-  User loggedInUser;
+  late String fullname, msisdn;
+  late User loggedInUser;
 
   bool getCurrentUser() {
     final user = _auth.currentUser;
@@ -104,7 +104,7 @@ class _UserDetailState extends State<UserDetail> {
                         _firestore.collection('employeeDetail').add({
                           'fullName': fullname,
                           'msisdn': msisdn,
-                          'userID': _auth.currentUser.uid
+                          'userID': _auth.currentUser!.uid
                         });
                         Navigator.pushNamed(context, CompanySelection.id)
                             .then((value) => Navigator.pop(context));

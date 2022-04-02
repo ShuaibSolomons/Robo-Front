@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:robo_front/reusableResources/loading_widget.dart';
@@ -5,7 +6,7 @@ import 'package:robo_front/screens/loading_screen.dart';
 import 'package:robo_front/screens/authentication/login_screen.dart';
 import 'package:robo_front/screens/authentication/registration_screen.dart';
 import 'package:robo_front/screens/authentication/welcome_screen.dart';
-import 'package:robo_front/screens/register/company_registration.dart';
+import 'package:robo_front/screens/register/company_setup.dart';
 import 'package:robo_front/screens/register/company_selection.dart';
 import 'package:robo_front/screens/register/user_detail.dart';
 
@@ -22,7 +23,11 @@ class App extends StatelessWidget {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return null;
+          return Center(
+            child: Text(
+              snapshot.data.toString(),
+            ),
+          );
         }
 
         // Once complete, show your application
@@ -38,12 +43,27 @@ class App extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
+  final _auth = FirebaseAuth.instance;
+  late User loggedInUser;
+  late String firstWidget;
+
+  void getCurrentUser() {
+    final user = _auth.currentUser;
+    if (user != null) {
+      loggedInUser = user;
+      firstWidget = LoadingScreen.id;
+    } else {
+      firstWidget = WelcomeScreen.id;
+    }
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    getCurrentUser();
     return MaterialApp(
       theme: ThemeData.dark(),
-      initialRoute: WelcomeScreen.id,
+      initialRoute: this.firstWidget,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
@@ -51,7 +71,7 @@ class MyApp extends StatelessWidget {
         LoadingScreen.id: (context) => LoadingScreen(),
         UserDetail.id: (context) => UserDetail(),
         CompanySelection.id: (context) => CompanySelection(),
-        CompanyRegistration.id: (context) => CompanyRegistration(),
+        CompanySetup.id: (context) => CompanySetup(),
       },
     );
   }

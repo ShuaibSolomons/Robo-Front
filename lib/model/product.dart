@@ -1,34 +1,34 @@
 class Product {
-  int productID;
-  String productTypeName;
-  int productTypeID;
-  String productName;
-  dynamic costPrice;
-  dynamic salePrice;
-  dynamic profitAmount;
-  String originCountry;
-  String originCurrencyCode;
-  bool customerShouldSetValue;
-  Null productLogoUrl;
-  int storeID;
-  int companyID;
-  int supplierID;
+  late int productID;
+  late String productTypeName;
+  late int productTypeID;
+  late String productName;
+  late dynamic costPrice;
+  late dynamic salePrice;
+  late dynamic profitAmount;
+  late String originCountry;
+  late String originCurrencyCode;
+  late bool customerShouldSetValue;
+  late Null productLogoUrl;
+  late int storeID;
+  late int companyID;
+  late String supplierID;
 
   Product(
-      {this.productID,
-      this.productTypeName,
-      this.productTypeID,
-      this.productName,
+      {required this.productID,
+      required this.productTypeName,
+      required this.productTypeID,
+      required this.productName,
       this.costPrice,
       this.salePrice,
       this.profitAmount,
-      this.originCountry,
-      this.originCurrencyCode,
-      this.customerShouldSetValue,
+      required this.originCountry,
+      required this.originCurrencyCode,
+      required this.customerShouldSetValue,
       this.productLogoUrl,
-      this.storeID,
-      this.companyID,
-      this.supplierID});
+      required this.storeID,
+      required this.companyID,
+      required this.supplierID});
 
   Product.fromJson(Map<String, dynamic> json) {
     productID = json['productID'];

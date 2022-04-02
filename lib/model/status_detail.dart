@@ -1,8 +1,10 @@
 class StatusDetail {
-  int txResponseStatusCode;
-  String txResponseStatusMessage;
+  late int? txResponseStatusCode;
+  late String? txResponseStatusMessage;
 
-  StatusDetail({this.txResponseStatusCode, this.txResponseStatusMessage});
+  StatusDetail(
+      {required this.txResponseStatusCode,
+      required this.txResponseStatusMessage});
 
   StatusDetail.fromJson(Map<String, dynamic> json) {
     txResponseStatusCode = json['txResponseStatusCode'];
