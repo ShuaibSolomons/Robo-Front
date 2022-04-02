@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
   late User loggedInUser;
   late String firstWidget;
 
-  void getCurrentUser() {
+  void isLoggedIn() {
     final user = _auth.currentUser;
     if (user != null) {
       loggedInUser = user;
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    getCurrentUser();
+    isLoggedIn();
     return MaterialApp(
       theme: ThemeData.dark(),
       initialRoute: this.firstWidget,
